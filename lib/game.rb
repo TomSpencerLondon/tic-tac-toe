@@ -17,7 +17,7 @@ class Game
     @print.start_game_message
     @print.get_move_message(@marker)
     get_player_move
-  end 
+  end
 
   def get_player_move(move = gets.chomp)
     raise "Not a valid move" unless valid_move?(move)
@@ -33,6 +33,11 @@ class Game
   def valid_move?(move)
     x, y = convert_move_to_coordinate(move)
     @board.check_value(x, y) == :empty
+  end
+
+  def invalidate_move
+    @print.invalid_move_message
+    get_player_move
   end
 
   def update_board(move)
