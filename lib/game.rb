@@ -11,7 +11,6 @@ class Game
     @marker = :X
   end
 
-
   def get_player_move(move = gets.chomp)
     raise "Not a valid move" unless valid_move?(move)
     play(move)
