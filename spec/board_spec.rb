@@ -22,4 +22,15 @@ describe Board do
       expect(board.grid[1][1]).to eq :X
     end
   end
+
+  describe '#check_value' do
+    it 'can check that value of grid is full' do
+      board.set_value(1, 1, :X)
+      expect(board.check_value(1, 1)).to eq :full
+    end 
+
+    it 'can check that value of grid is empty' do
+      expect(board.check_value(1, 1)).to eq :empty
+    end
+  end
 end
