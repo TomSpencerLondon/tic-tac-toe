@@ -14,4 +14,8 @@ class Board
     end
   end
 
+  def set_value(x, y, move)
+    @grid[y][x] = move
+  end 
+
 end
