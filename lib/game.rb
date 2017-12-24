@@ -1,4 +1,6 @@
 require_relative 'board'
+require_relative 'rules'
+require_relative 'printer'
 
 class Game
 
@@ -10,6 +12,12 @@ class Game
     @print = printer.new
     @marker = :X
   end
+
+  def start
+    @print.start_game_message
+    @print.get_move_message(@marker)
+    get_player_move
+  end 
 
   def get_player_move(move = gets.chomp)
     raise "Not a valid move" unless valid_move?(move)
