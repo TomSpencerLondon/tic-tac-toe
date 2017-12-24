@@ -28,6 +28,7 @@ class Game
 
   def play(move)
     update_board(move)
+    update_game(@marker)
   end
 
   def valid_move?(move)
@@ -40,9 +41,25 @@ class Game
     get_player_move
   end
 
+  def switch_player
+    @marker == :X ? @marker = :O : @marker = :X
+    @print.get_move_message(@marker)
+  end
+
   def update_board(move)
     x, y = convert_move_to_coordinate(move)
     @board.set_value(x, y, @marker)
+  end
+
+  def update_game(last_player)
+    if game_over?(last_player)
+      @board.print_board
+      declare_result
+    else
+      @board.print_board
+      switch_player
+      get_player_move
+    end
   end
 
 
@@ -60,5 +77,20 @@ class Game
       }
       coordinate_mapping[move]
   end
+
+  def game_over?(marker)
+    return :win if @rules.got_winner?(marker)
+    return :draw if @rules.got_tie?
+    false
+  end
+
+  def declare_result
+    if game_over?(@marker) == :win
+      @print.game_ends_with_win_message(@marker)
+    else
+      @print.game_ends_with_tie_message
+    end
+  end
+
 
 end
