@@ -4,10 +4,13 @@ class Game
 
   attr_reader :board
 
-  def initialize(board = Board)
+  def initialize(board = Board, rules = Rules, printer = Printer)
     @board = board.new
+    @rules = rules.new(@board)
+    @print = printer.new
     @marker = :X
   end
+
 
   def get_player_move(move = gets.chomp)
     raise "Not a valid move" unless valid_move?(move)
